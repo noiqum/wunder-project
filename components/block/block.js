@@ -1,15 +1,18 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 import ArrowRight from '../svg.components/arrowRight';
 
 const Block = ({ person }) => {
 
+    const navigation = useNavigation()
+
     return <View style={styles.block}>
         <View style={styles.left}>
             <Image source={{ uri: person.picture.thumbnail }} style={styles.blockImage} ></Image>
             <Text style={styles.info} >{person.name.first} , {person.dob.age}</Text>
         </View>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}>
             <View><ArrowRight /></View>
         </TouchableOpacity>
     </View>
