@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useEffect, useRef, useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { FlatList, StyleSheet, Text, TextInput, View } from 'react-native';
 import io from 'socket.io-client'
+import Block from './components/block/block';
 
 
 
@@ -10,12 +11,36 @@ export default function App() {
   const [userDataList, setUserDataList] = useState([])
 
 
-  // useEffect(() => {
-  //   const socket = io('wss://wunder-provider.herokuapp.com/')
-  //   socket.on('userList', (stm) => {
-  //     console.log(stm.results[0].name.first)
-  //   })
-  // })
+  useEffect(() => {
+    const socket = io('wss://wunder-provider.herokuapp.com/',
+      {
+        timeout: 10000,
+        jsonp: false,
+        autoConnect: true,
+        agent: '-',
+        pfx: '-',
+        cert: '-',
+        ca: '-',
+        ciphers: '-',
+        perMessageDeflate: '-',
+        transports: ['polling'],
+        transportOptions: {
+          polling: {
+            extraHeaders: {
+              'Origin': "http://localhost:19006"
+            }
+          }
+        }
+      }
+    )
+    socket.on('userList', (stm) => {
+      setUserDataList((state) => {
+        const list = state.length > 0 ? [...state].filter(el => el.login.uuid !== stm.results[0].login.uuid) : [...state];
+        list.push(stm.results[0])
+        return list;
+      })
+    })
+  })
 
 
   return (
@@ -29,10 +54,14 @@ export default function App() {
         </View>
 
       </View>
-      <View>
-        <Text>hello</Text>
-      </View>
-
+      <FlatList data={userDataList}
+        renderItem={(person) => (
+          <Block person={person.item} />
+        )}
+        keyExtractor={(item) => {
+          item.login.uuid
+        }}
+      />
 
       <StatusBar style="auto" />
 
