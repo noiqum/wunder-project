@@ -3,7 +3,7 @@ import React from 'react';
 import { Image, Text, TouchableOpacity, View, StyleSheet } from 'react-native'
 import ArrowRight from '../svg.components/arrowRight';
 
-const Block = ({ person }) => {
+const Block = React.memo(({ person }) => {
 
     const navigation = useNavigation()
 
@@ -12,11 +12,11 @@ const Block = ({ person }) => {
             <Image source={{ uri: person.picture.thumbnail }} style={styles.blockImage} ></Image>
             <Text style={styles.info} >{person.name.first} , {person.dob.age}</Text>
         </View>
-        <TouchableOpacity onPress={() => { navigation.navigate('Profile') }}>
+        <TouchableOpacity onPress={() => { navigation.navigate('Profile', { person }) }}>
             <View><ArrowRight /></View>
         </TouchableOpacity>
     </View>
-}
+})
 
 const styles = StyleSheet.create({
     block: {

@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { View, Text } from 'react-native';
 
-const Profile = () => {
+const Profile = ({ route }) => {
+    const { person } = route.params;
     return <View>
         <Text>
-            Profile
+            {person.name.first}
         </Text>
     </View>
 }

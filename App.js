@@ -13,8 +13,30 @@ function App() {
   return (
     <NavigationContainer >
       <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="Home" component={HomeScreen}
+          options={{
+            title: 'Wunder',
+            headerStyle: {
+              backgroundColor: '#6374f3',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
+        <Stack.Screen name="Profile" component={Profile}
+          options={{
+            title: 'My Profile',
+            headerStyle: {
+              backgroundColor: '#6374f3',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

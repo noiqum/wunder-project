@@ -33,14 +33,20 @@ export default function App() {
                 }
             }
         )
+
+
         socket.on('userList', (stm) => {
-            setUserDataList((state) => {
-                const list = state.length > 0 ? [...state].filter(el => el.login.uuid !== stm.results[0].login.uuid) : [...state];
-                list.push(stm.results[0])
-                return list;
-            })
+            if (userDataList.length < 5) {
+                setUserDataList((state) => {
+                    const list = state.length > 0 ? [...state].filter(el => el.login.uuid !== stm.results[0].login.uuid) : [...state];
+                    list.push(stm.results[0])
+                    return list;
+                })
+            }
+
         })
-    })
+
+    }, [userDataList])
 
 
     return (
