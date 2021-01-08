@@ -3,12 +3,24 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import io from 'socket.io-client'
 import Block from '../components/block/block';
+import { AppLoading } from 'expo';
+import * as Font from 'expo-font';
+import { MaterialCommunityIcons, Feather, Entypo } from '@expo/vector-icons';
 
 
 
 
 export default function App() {
     const [userDataList, setUserDataList] = useState([])
+
+
+
+    function cacheFonts(fonts) {
+        return fonts.map(font => Font.loadAsync(font));
+    }
+    const loadAssets = async () => {
+        await cacheFonts([MaterialCommunityIcons.font, Feather.font, Entypo.font])
+    }
 
 
     useEffect(() => {
@@ -33,7 +45,7 @@ export default function App() {
                 }
             }
         )
-
+        loadAssets()
 
         socket.on('userList', (stm) => {
             if (userDataList.length < 5) {
@@ -50,6 +62,7 @@ export default function App() {
 
 
     return (
+
         <View style={styles.container} >
             <View style={styles.head}>
                 <Text style={styles.header}>PROFILES</Text>
@@ -72,6 +85,7 @@ export default function App() {
             <StatusBar style="auto" />
 
         </View>
+
     );
 }
 
