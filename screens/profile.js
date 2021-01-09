@@ -9,7 +9,7 @@ const Profile = ({ route }) => {
     const { person } = route.params;
 
 
-    return <ImageBackground style={styles.bg} source={require('../components/svg/bg.svg')}>
+    return <ImageBackground style={styles.bg} source={require('../assets/bg.png')}>
         <View style={styles.info}>
             <Image style={styles.info_img} source={{ uri: person.picture.medium }} />
             <View>
@@ -63,7 +63,8 @@ export default Profile;
 const styles = StyleSheet.create({
     bg: {
         width: "100%",
-        height: "100%"
+        height: "100%",
+        resizeMode: "cover"
     },
     info: {
         width: "100%",

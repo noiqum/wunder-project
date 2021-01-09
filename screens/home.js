@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 import io from 'socket.io-client'
 import Block from '../components/block/block';
-import { AppLoading } from 'expo';
+import { Asset } from 'expo-asset';
 import * as Font from 'expo-font';
 import { MaterialCommunityIcons, Feather, Entypo } from '@expo/vector-icons';
 
@@ -13,13 +13,18 @@ import { MaterialCommunityIcons, Feather, Entypo } from '@expo/vector-icons';
 export default function App() {
     const [userDataList, setUserDataList] = useState([])
 
+    const images = [require('../assets/bg.png')];
 
+    function cacheImages(images) {
+        return images.map(image => { Asset.fromModule(image).downloadAsync(); })
+    }
 
     function cacheFonts(fonts) {
         return fonts.map(font => Font.loadAsync(font));
     }
     const loadAssets = async () => {
         await cacheFonts([MaterialCommunityIcons.font, Feather.font, Entypo.font])
+        await cacheImages(images)
     }
 
 
