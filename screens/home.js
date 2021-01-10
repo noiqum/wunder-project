@@ -13,7 +13,7 @@ import { MaterialCommunityIcons, Feather, Entypo } from '@expo/vector-icons';
 export default function App() {
     const [userDataList, setUserDataList] = useState([])
 
-    const images = [require('../assets/bg.png')];
+    const images = [require('../assets/bgNew.png')];
 
     function cacheImages(images) {
         return images.map(image => { Asset.fromModule(image).downloadAsync(); })

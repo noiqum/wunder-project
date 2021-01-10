@@ -9,34 +9,33 @@ const Profile = ({ route }) => {
     const { person } = route.params;
 
 
-    return <ImageBackground style={styles.bg} source={require('../assets/bg.png')}>
+    return <ImageBackground style={styles.bg} source={require('../assets/bgNew.png')}>
         <View style={styles.info}>
             <Image style={styles.info_img} source={{ uri: person.picture.medium }} />
-            <View>
+            <View style={styles.info_body}>
                 <Text style={styles.info_text}>
-                    {person.name.first}
+                    <Text style={{ marginRight: 5 }}>{person.name.first}</Text> {person.name.last}
                 </Text>
-                <Text style={styles.info_textSubling}>
-                    {person.name.last}
-                </Text>
+
                 <Text style={styles.info_textSubling}>
                     {person.dob.age}
                 </Text>
             </View>
 
         </View>
-        <View style={styles.city}>
 
-            <Text style={styles.info_text}>
-                <MaterialCommunityIcons name="home-city-outline" size={24} color="#6374F3" style={{ marginRight: 10 }} />
-                {person.location.city}
-            </Text>
-        </View>
         <View style={styles.user}>
             <View>
                 <Text style={styles.info_text}>
                     <Feather name="user" size={24} color="#6374F3" style={{ marginRight: 10 }} />
                     {person.login.username}
+                </Text>
+            </View>
+            <View >
+
+                <Text style={styles.info_textSubling}>
+                    <MaterialCommunityIcons name="home-city-outline" size={24} color="#6374F3" style={{ marginRight: 10 }} />
+                    {person.location.city}
                 </Text>
             </View>
             <View>
@@ -64,33 +63,38 @@ const styles = StyleSheet.create({
     bg: {
         width: "100%",
         height: "100%",
-        resizeMode: "cover"
+        resizeMode: "contain"
     },
     info: {
         width: "100%",
-        height: "20%",
+        height: "30vh",
         backgroundColor: "transparent",
-        justifyContent: "flex-start",
-        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        flexDirection: "column",
     },
     info_img: {
-        margin: 20,
+        marginTop: 60,
         width: 125,
         height: 125,
-        borderRadius: 20,
-        borderColor: "#6374F3",
+        borderRadius: "50%",
+        borderColor: "#E0E3DA",
         borderWidth: 2,
         borderStyle: "solid",
     },
+    info_body: {
+        justifyContent: "center",
+        alignItems: "center"
+    },
     info_text: {
-        color: "#6374F3",
+        color: "#E0E3DA",
         fontSize: 20,
         marginLeft: 10,
-        marginTop: 30,
+        marginTop: 15,
 
     },
     info_textSubling: {
-        color: "#6374F3",
+        color: "#E0E3DA",
         fontSize: 20,
         marginLeft: 10,
         marginTop: 10,
@@ -104,7 +108,7 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     user: {
-        marginTop: 100,
+        marginTop: 125,
         marginLeft: 20,
     }
 
